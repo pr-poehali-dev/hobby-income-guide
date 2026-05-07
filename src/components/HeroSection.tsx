@@ -1,4 +1,8 @@
+import { useAccessibility } from "@/components/AccessibilityProvider";
+
 export default function HeroSection() {
+  const { enabled, toggle } = useAccessibility();
+
   return (
     <>
       {/* NAV */}
@@ -14,9 +18,25 @@ export default function HeroSection() {
             <a href="#stories" className="hover:text-orange-500 transition-colors">Истории</a>
             <a href="#contact" className="hover:text-orange-500 transition-colors">Контакты</a>
           </div>
-          <a href="#catalog" className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-5 py-2.5 rounded-full text-sm transition-all hover:scale-105 active:scale-95">
-            Начать
-          </a>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggle}
+              aria-pressed={enabled}
+              aria-label="Версия для слабовидящих"
+              title="Версия для слабовидящих"
+              className={`flex items-center gap-1.5 border-2 font-bold px-3 py-2 rounded-full text-sm transition-all hover:scale-105 active:scale-95 ${
+                enabled
+                  ? "a11y-btn-active border-black bg-black text-white"
+                  : "border-gray-300 text-gray-600 hover:border-gray-500"
+              }`}
+            >
+              <span className="text-base">👁</span>
+              <span className="hidden sm:inline">{enabled ? "Обычный" : "Для слабовидящих"}</span>
+            </button>
+            <a href="#catalog" className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-5 py-2.5 rounded-full text-sm transition-all hover:scale-105 active:scale-95">
+              Начать
+            </a>
+          </div>
         </div>
       </nav>
 
